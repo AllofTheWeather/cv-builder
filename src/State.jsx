@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import { Form } from './Form';
 import { Export } from './Export';
+
 
 export default function State() {
 
@@ -44,12 +46,6 @@ export default function State() {
 
   return (
       <div>
-        <div className="container-fluid bg-primary">
-          <h1 className="p-3 text-white m-0">CV Builder</h1>
-        </div>
-        
-          <div className="container-fluid bg-warning p-1" />
-          <div className="container-fluid p-3 ">Welcome to C.V. Builder. Fill in all the fields to begin generating your C.V.</div>
           <Form setters={setters} values={values} />
           <Export values={values} />
       </div>

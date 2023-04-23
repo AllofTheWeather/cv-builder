@@ -25,7 +25,7 @@ export function Export(props) {
     return (
     <div>
       <div className="container-fluid bg-success">
-        <h3 className="text-center text-white p-3">You`&apos;`re all done! Click print to generate a pdf of your CV</h3>
+        <h3 className="text-center text-white p-3">You&apos;re all done! Click print to generate a pdf of your CV</h3>
         
         <div className="d-flex justify-content-center">
           <button className="btn btn-warning m-3" onClick={printDocument}>Print</button>
