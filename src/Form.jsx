@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState, useContext } from "react"
+import { UserContext, rootPath, defaultStyling } from "./Constants";
+import { NavLink } from "react-router-dom";
 
 /*{ 
     Each job in the employment history section will require a dedicated input field
@@ -35,7 +37,9 @@ import { useState, useEffect } from "react"
 }*/
 
 function ContactForm(props) {
-
+    let context = useContext(UserContext);
+    let values = context[0];
+    let setters = context[1];
     /*{
         "props.contact" is a data structure of type: object
         It contains each classification of data from the contact form
@@ -53,10 +57,8 @@ function ContactForm(props) {
     // The for loop automatically adds an extra form with no corresponding data - this defaults tot empty form placeholders upon render
 
     function handleChange(key, e) {
-
-        console.log(props.values.contact)
         
-        let shallowCopy = [...props.values.contact];
+        let shallowCopy = [...values.contact];
 
         if (shallowCopy[0] === undefined) {
             shallowCopy.push({});
@@ -77,11 +79,11 @@ function ContactForm(props) {
         }
 
         
-        props.setters.setContact(shallowCopy);
+        setters.setContact(shallowCopy);
         
     }
 
-    let shallowCopy = [...props.values.contact];
+    let shallowCopy = [...values.contact];
 
     let number = shallowCopy[0] === undefined ? "" : shallowCopy[0].number;
     let email = shallowCopy[0] === undefined ? "" : shallowCopy[0].email;
@@ -119,11 +121,14 @@ function ContactForm(props) {
 };
 
 function EducationFields(props) {
+    let context = useContext(UserContext);
+    let values = context[0];
+    let setters = context[1];
     function handleChange(key, e) {
 
         console.log(key);
     
-        let shallowCopy = [...props.values.education];
+        let shallowCopy = [...values.education];
 
         if (shallowCopy[props.index] === undefined) {
             console.log("undefined");
@@ -140,20 +145,20 @@ function EducationFields(props) {
             shallowCopy[props.index].grade = e.target.value;
         }
  
-        props.setters.setEducation(shallowCopy);
+        setters.setEducation(shallowCopy);
     }
 
     function handleRemove() {
         props.setCount(count => count - 1);
 
-        let shallowCopy = [...props.values.education];
+        let shallowCopy = [...values.education];
         shallowCopy.splice(props.index, 1)
-        props.setters.setEducation(shallowCopy);
+        setters.setEducation(shallowCopy);
     }
 
-    let institution = props.values.education[props.index] === undefined ? "" : props.values.education[props.index].institution;
-    let qualification = props.values.education[props.index] === undefined ? "" : props.values.education[props.index].qualification;
-    let grade = props.values.education[props.index] === undefined ? "" : props.values.education[props.index].grade;
+    let institution = values.education[props.index] === undefined ? "" : values.education[props.index].institution;
+    let qualification = values.education[props.index] === undefined ? "" : values.education[props.index].qualification;
+    let grade = values.education[props.index] === undefined ? "" : values.education[props.index].grade;
 
     return (
         <div>
@@ -209,7 +214,9 @@ function EducationForm(props) {
 }
 
 function SkillFields(props) {
-
+    let context = useContext(UserContext);
+    let values = context[0];
+    let setters = context[1];
     /*{The data for each employer form is stored in its componenet as an object}*/
     /*{Once the required field have been completed, the whole object is assigned a name and set to app level state}*/
 
@@ -217,7 +224,7 @@ function SkillFields(props) {
 
     function handleChange(key, e) {
     
-        let shallowCopy = [...props.values.skills];
+        let shallowCopy = [...values.skills];
 
         if (shallowCopy[props.index] === undefined) {
             for (let i = shallowCopy.length - 1; i < props.index; i ++) {
@@ -231,11 +238,11 @@ function SkillFields(props) {
             shallowCopy[props.index].skill = e.target.value;
         }
  
-        props.setters.setSkills(shallowCopy);
+        setters.setSkills(shallowCopy);
     }
 
     function handleRadio(value) {
-        let shallowCopy = [...props.values.skills];
+        let shallowCopy = [...values.skills];
         if (shallowCopy[props.index] === undefined) {
             for (let i = shallowCopy.length - 1; i < props.index; i ++) {
                 shallowCopy.push({});
@@ -244,19 +251,19 @@ function SkillFields(props) {
 
         shallowCopy[props.index].profficiency = value;
 
-        props.setters.setSkills(shallowCopy)
+        setters.setSkills(shallowCopy)
     }
 
     function handleRemove() {
         props.setCount(count => count - 1);
 
-        let shallowCopy = [...props.values.skills];
+        let shallowCopy = [...values.skills];
         shallowCopy.splice(props.index, 1)
-        props.setters.setEmployment(shallowCopy);
+        setters.setEmployment(shallowCopy);
     }
 
     function isChecked(rank) {
-        let profficiency = props.values.skills[props.index] === undefined ? "" : props.values.skills[props.index].profficiency;
+        let profficiency = values.skills[props.index] === undefined ? "" : values.skills[props.index].profficiency;
         if (rank === profficiency) {
             return true
         } else {
@@ -264,7 +271,7 @@ function SkillFields(props) {
         }
     }
 
-    let skill = props.values.skills[props.index] === undefined ? "" : props.values.skills[props.index].skill;
+    let skill = values.skills[props.index] === undefined ? "" : values.skills[props.index].skill;
 
     return (
         <div className="container mb-3">
@@ -350,7 +357,9 @@ function SkillsForm(props) {
 }
 
 function EmployerFields(props) {
-
+    let context = useContext(UserContext);
+    let values = context[0];
+    let setters = context[1];
     /*{The data for each employer form is stored in its componenet as an object}*/
     /*{Once the required field have been completed, the whole object is assigned a name and set to app level state}*/
 
@@ -360,7 +369,7 @@ function EmployerFields(props) {
 
         console.log(key);
     
-        let shallowCopy = [...props.values.employment];
+        let shallowCopy = [...values.employment];
 
         if (shallowCopy[props.index] === undefined) {
             console.log("undefined");
@@ -385,27 +394,27 @@ function EmployerFields(props) {
             shallowCopy[props.index].description = e.target.value;
         }
  
-        props.setters.setEmployment(shallowCopy);
+        setters.setEmployment(shallowCopy);
     }
 
     function handleRemove() {
         props.setCount(count => count - 1);
 
-        let shallowCopy = [...props.values.employment];
+        let shallowCopy = [...values.employment];
         shallowCopy.splice(props.index, 1)
-        props.setters.setEmployment(shallowCopy);
+        setters.setEmployment(shallowCopy);
     }
 
-    let location = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].location;
-    let name = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].name;
+    let location = values.employment[props.index] === undefined ? "" : values.employment[props.index].location;
+    let name = values.employment[props.index] === undefined ? "" : values.employment[props.index].name;
 
-    let description = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].description;
+    let description = values.employment[props.index] === undefined ? "" : values.employment[props.index].description;
 
-    let start = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].start;
-    let end = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].end;
+    let start = values.employment[props.index] === undefined ? "" : values.employment[props.index].start;
+    let end = values.employment[props.index] === undefined ? "" : values.employment[props.index].end;
 
-    let title = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].title;
-    let contact = props.values.employment[props.index] === undefined ? "" : props.values.employment[props.index].contact;
+    let title = values.employment[props.index] === undefined ? "" : values.employment[props.index].title;
+    let contact = values.employment[props.index] === undefined ? "" : values.employment[props.index].contact;
 
     return (
         <div className="mb-3">
@@ -503,9 +512,13 @@ function EmployersForm(props) {
 }
 
 function GeneralForm(props) {
-
+    let context = useContext(UserContext);
+    let values = context[0];
+    let setters = context[1];
     function handleChange(key, e) {
-        let shallowCopy = [...props.values.general];
+        
+
+        let shallowCopy = [...values.general];
 
         if (shallowCopy[0] === undefined) {
             shallowCopy.push({});
@@ -525,15 +538,15 @@ function GeneralForm(props) {
             shallowCopy[0].age = e.target.value;
         }
 
-        props.setters.setGeneral(shallowCopy);
+        setters.setGeneral(shallowCopy);
     }
 
-    let firstName = props.values.general[0] === undefined ? "" : props.values.general[0].firstName;
-    let lastName = props.values.general[0] === undefined ? "" : props.values.general[0].lastName;
-    let gender = props.values.general[0] === undefined ? "" : props.values.general[0].gender;
-    let jobTitle = props.values.general[0] === undefined ? "" : props.values.general[0].jobTitle;
-    let profficiency = props.values.general[0] === undefined ? "" : props.values.general[0].profficiency;
-    let age = props.values.general[0] === undefined ? "" : props.values.general[0].age;
+    let firstName = values.general[0] === undefined ? "" : values.general[0].firstName;
+    let lastName = values.general[0] === undefined ? "" : values.general[0].lastName;
+    let gender = values.general[0] === undefined ? "" : values.general[0].gender;
+    let jobTitle = values.general[0] === undefined ? "" : values.general[0].jobTitle;
+    let profficiency = values.general[0] === undefined ? "" : values.general[0].profficiency;
+    let age = values.general[0] === undefined ? "" : values.general[0].age;
 
     return (
         <div className="container mb-3">
@@ -595,30 +608,36 @@ function GeneralForm(props) {
 
 export function Form(props) {
 
+    let shallowCopy = useContext(UserContext);
+
+    let values = shallowCopy[0]
+    let setters = shallowCopy[1];
+
     return (
         <>
             <div className="container pt-3">
             <ul className="list-group">
                 <li className="list-group-item">
-                <GeneralForm values={props.values} setters={props.setters} />
+                <GeneralForm values={values} setters={setters} />
                 </li> 
                 <li className="list-group-item">
-                <ContactForm values={props.values} setters={props.setters} />
+                <ContactForm values={values} setters={setters} />
                 </li> 
             </ul>
             </div>
 
-            
-           
             {/* omitted adjective input */}
 
-            <EmployersForm values={props.values} setters={props.setters} />
+            <EmployersForm values={values} setters={setters} />
 
-            <SkillsForm values={props.values} setters={props.setters} />
+            <SkillsForm values={values} setters={setters} />
 
-            <EducationForm values={props.values} setters={props.setters} />
+            <EducationForm values={values} setters={setters} />
 
-            
+            <div className="container">
+                <NavLink to={rootPath + "preview"} className={({ isActive, isPending }) =>
+                isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling} />
+            </div>
         </>
     )
 }

@@ -42,7 +42,7 @@ export function Export(props) {
       }}>
         {/* The dimensions are the same a A4*/}
         {/* Any children will be printed to PDF */}
-        <CV values={props.values}/>
+        
       </div>
     </div>);
 }

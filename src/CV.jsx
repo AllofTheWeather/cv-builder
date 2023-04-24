@@ -1,18 +1,24 @@
+import { useContext } from "react";
+import { UserContext } from "./Constants";
+
 export function CV(props) {
+    
+    let context = useContext(UserContext);
+    let values = context[0];
 
-    let firstName = props.values.general[0] === undefined ? "" : props.values.general[0].firstName;
-    let lastName = props.values.general[0] === undefined ? "" : props.values.general[0].lastName; 
-    let gender = props.values.general[0] === undefined ? "" : props.values.general[0].gender;
-    let jobTitle = props.values.general[0] === undefined ? "" : props.values.general[0].jobTitle;
-    let profficiency = props.values.general[0] === undefined ? "" : props.values.general[0].profficiency;
-    let age = props.values.general[0] === undefined ? "" : props.values.general[0].age;
+    let firstName = values.general[0] === undefined ? "" : values.general[0].firstName;
+    let lastName = values.general[0] === undefined ? "" : values.general[0].lastName; 
+    let gender = values.general[0] === undefined ? "" : values.general[0].gender;
+    let jobTitle = values.general[0] === undefined ? "" : values.general[0].jobTitle;
+    let profficiency = values.general[0] === undefined ? "" : values.general[0].profficiency;
+    let age = values.general[0] === undefined ? "" : values.general[0].age;
 
-    let number = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].number;
-    let email = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].email;
-    let addressLine1 = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].addressLine1;
-    let addressLine2 = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].addressLine2;
-    let addressLine3 = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].addressLine3;
-    let postcode = [...props.values.contact][0] === undefined ? "" : [...props.values.contact][0].postcode;
+    let number = [...values.contact][0] === undefined ? "" : [...values.contact][0].number;
+    let email = [...values.contact][0] === undefined ? "" : [...values.contact][0].email;
+    let addressLine1 = [...values.contact][0] === undefined ? "" : [...values.contact][0].addressLine1;
+    let addressLine2 = [...values.contact][0] === undefined ? "" : [...values.contact][0].addressLine2;
+    let addressLine3 = [...values.contact][0] === undefined ? "" : [...values.contact][0].addressLine3;
+    let postcode = [...values.contact][0] === undefined ? "" : [...values.contact][0].postcode;
 
     return (
         <div>
@@ -56,7 +62,7 @@ export function CV(props) {
                 <h1 className="p-2">Employment history</h1>
                 <ul className="list-unstyled">
                     {
-                        props.values.employment.map((item, key) => {
+                        values.employment.map((item, key) => {
                             return (
                                 <li key={key} className="bg-body p-2 border-top">
                                     <div className="d-flex justify-content-between">
@@ -99,7 +105,7 @@ export function CV(props) {
                                 </div>
                             </li>
                             {
-                                props.values.education.map((item, key) => {
+                                values.education.map((item, key) => {
                                     return (
                                         <li key={key} className="bg-body p-2">
                                             
@@ -132,7 +138,7 @@ export function CV(props) {
                         <h3 className="">Skills</h3>
                     </li>
                     {
-                        props.values.skills.map((item, key) => {
+                        values.skills.map((item, key) => {
                             return (
                                 <li className="list-group-item" key={key}>
                                     <p className=""><strong>{item.skill}</strong>: {item.profficiency}</p>

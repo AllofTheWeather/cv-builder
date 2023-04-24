@@ -3,21 +3,25 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './Home.jsx';
-import State from './State.jsx';
 import About from './About.jsx';
 import { rootPath } from './Constants.js';
+import { Form } from './Form.jsx';
+import { CV } from './CV.jsx';
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<App />}>
-        <Route path={rootPath} element={<Home />} />
-        <Route path={rootPath + 'form'} element={<State />} />
-        <Route path={rootPath + 'about'} element={<About />} />    
+          <Route path={rootPath} element={<Home />} />
+          <Route path={rootPath + 'form'} element={<Form />} />
+          <Route path={rootPath + 'preview'} element={<CV />} />
+          <Route path={rootPath + 'about'} element={<About />} />   
       </Route>
 
     </>
-    
     )
 );
 

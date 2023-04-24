@@ -1,9 +1,7 @@
 import { NavLink } from "react-router-dom"
-import { rootPath } from "./Constants"
+import { rootPath, defaultStyling } from "./Constants"
 
 export default function Nav() {
-
-  let defaultStyling = "nav-link"
 
   return (
     <nav className="container-fluid border-bottom">
@@ -15,6 +13,10 @@ export default function Nav() {
         <li className="nav-item">
           <NavLink to={rootPath + "form"} className={({ isActive, isPending }) =>
           isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling}>form</NavLink>          
+        </li>
+        <li className="nav-item">
+          <NavLink to={rootPath + "preview"} className={({ isActive, isPending }) =>
+          isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling}>preview</NavLink>          
         </li>
         <li className="nav-item">
           <NavLink to={rootPath + 'about'} className={({ isActive, isPending }) =>
