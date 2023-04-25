@@ -6,10 +6,10 @@ import Home from './Home.jsx';
 import About from './About.jsx';
 import { rootPath } from './Constants.js';
 import { Form } from './Form.jsx';
-import { CV } from './CV.jsx';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import Download from './Download.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
       <Route element={<App />}>
           <Route path={rootPath} element={<Home />} />
           <Route path={rootPath + 'form'} element={<Form />} />
-          <Route path={rootPath + 'preview'} element={<CV />} />
+          <Route path={rootPath + 'download'} element={<Download />} />
           <Route path={rootPath + 'about'} element={<About />} />   
       </Route>
 

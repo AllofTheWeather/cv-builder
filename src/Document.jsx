@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "./Constants";
 
-export function CV(props) {
+export function Document() {
     
     let context = useContext(UserContext);
     let values = context[0];
@@ -21,7 +21,13 @@ export function CV(props) {
     let postcode = [...values.contact][0] === undefined ? "" : [...values.contact][0].postcode;
 
     return (
-        <div>
+        <div id="divToPrint" className="mt4 z" style={{
+            backgroundColor: '#f5f5f5',
+            width: '210mm',
+            minHeight: '297mm',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
             <div className="p-3">
 
                 <div className="d-flex bg-body p-2">
@@ -30,7 +36,7 @@ export function CV(props) {
                         
 
                         <div className="">
-                                <p>I`&apos;`m a {age} year old {gender} looking for {() => {
+                                <p>I&apos;m a {age} year old {gender} looking for {() => {
                             if (
                                 profficiency[0] === "a"
                                 || profficiency[0] === "e"
@@ -133,14 +139,14 @@ export function CV(props) {
         <div className="col-4 p-0">
             <div className="pt-3">
                 
-                <ul className="list-group mb-3">
-                    <li className="list-group-item">
+                <ul className="list-unstyled mb-3">
+                    <li className="">
                         <h3 className="">Skills</h3>
                     </li>
                     {
                         values.skills.map((item, key) => {
                             return (
-                                <li className="list-group-item" key={key}>
+                                <li className="" key={key}>
                                     <p className=""><strong>{item.skill}</strong>: {item.profficiency}</p>
                                 </li>
                             )

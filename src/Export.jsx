@@ -5,7 +5,7 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-import { CV } from './CV';
+import { Document } from './Document';
 
 export function Export(props) {
 
@@ -25,7 +25,6 @@ export function Export(props) {
     return (
     <div>
       <div className="container-fluid bg-success">
-        <h3 className="text-center text-white p-3">You&apos;re all done! Click print to generate a pdf of your CV</h3>
         
         <div className="d-flex justify-content-center">
           <button className="btn btn-warning m-3" onClick={printDocument}>Print</button>
@@ -33,16 +32,10 @@ export function Export(props) {
        
         
       </div>
-      <div id="divToPrint" className="mt4" style={{
-        backgroundColor: '#f5f5f5',
-        width: '210mm',
-        minHeight: '297mm',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }}>
+
         {/* The dimensions are the same a A4*/}
         {/* Any children will be printed to PDF */}
         
       </div>
-    </div>);
+    )
 }

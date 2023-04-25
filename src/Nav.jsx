@@ -15,8 +15,8 @@ export default function Nav() {
           isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling}>form</NavLink>          
         </li>
         <li className="nav-item">
-          <NavLink to={rootPath + "preview"} className={({ isActive, isPending }) =>
-          isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling}>preview</NavLink>          
+          <NavLink to={rootPath + "download"} className={({ isActive, isPending }) =>
+          isPending ? "pending " + defaultStyling : isActive ? "active " + defaultStyling : defaultStyling}>download</NavLink>          
         </li>
         <li className="nav-item">
           <NavLink to={rootPath + 'about'} className={({ isActive, isPending }) =>

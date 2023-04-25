@@ -36,7 +36,7 @@ import { NavLink } from "react-router-dom";
 
 }*/
 
-function ContactForm(props) {
+function ContactForm() {
     let context = useContext(UserContext);
     let values = context[0];
     let setters = context[1];
@@ -118,7 +118,7 @@ function ContactForm(props) {
             </div>
         </div>
     )
-};
+}
 
 function EducationFields(props) {
     let context = useContext(UserContext);
@@ -184,23 +184,23 @@ function EducationFields(props) {
     )
 }
 
-function EducationForm(props) {
+function EducationForm() {
 
     const [ count, setCount ] = useState(0);
 
     let educationForms = [];
 
     for (let i = 0; i <= count; i ++) {
-        educationForms = [...educationForms, <EducationFields values={props.values} setters={props.setters} count={count} setCount={setCount} index={i} />];
+        educationForms = [...educationForms, <EducationFields count={count} setCount={setCount} index={i}  key={i} />];
     }
 
     return (
         <div className="container mb-3">
         <h1 className="m-3 p-3">Education History</h1>
-        <ul className="list-group">
+        <ul className="list-unstyled">
         {educationForms.map((element, index) => {
             return (
-                <li className="list-group-item" key={index}>
+                <li className="" key={index}>
                     {element}
                 </li>
             )
@@ -327,23 +327,23 @@ function SkillFields(props) {
     )
 }
 
-function SkillsForm(props) {
+function SkillsForm() {
 
     const [ count, setCount ] = useState(0);
 
     let skillForms = [];
 
     for (let i = 0; i <= count; i ++) {
-        skillForms = [...skillForms, <SkillFields values={props.values} setters={props.setters} count={count} setCount={setCount} index={i} />];
+        skillForms = [...skillForms, <SkillFields count={count} setCount={setCount} index={i} key={i} />];
     }
 
     return (
         <div className="container">
         <h1 className="m-3 p-3">Skills</h1>
-        <ul className="list-group">
+        <ul className="list-unstyled">
         {skillForms.map((element, index) => {
             return (
-                <li className="list-group-item" key={index}>
+                <li className="" key={index}>
                     {element}
                 </li>
             )
@@ -481,24 +481,24 @@ function EmployerFields(props) {
     )
 }
 
-function EmployersForm(props) {
+function EmployersForm() {
 
     const [ count, setCount ] = useState(0);
 
     let employerForms = [];
 
     for (let i = 0; i <= count; i ++) {
-        employerForms = [...employerForms, <EmployerFields values={props.values} setters={props.setters} count={count} setCount={setCount} index={i} />];
+        employerForms = [...employerForms, <EmployerFields count={count} setCount={setCount} index={i} key={i} />];
     }
 
     return (
         <div className="container mb-3">
         <h1 className="p-3">Employment History</h1>
         <p>The details of your work history show potential employers what practical experience you have.</p>
-        <ul className="list-group">
+        <ul className="list-unstyled">
         {employerForms.map((element, index) => {
             return (
-                <li className="list-group-item" key={index}>
+                <li className="" key={index}>
                     {element}
                 </li>
             )
@@ -511,7 +511,7 @@ function EmployersForm(props) {
     )
 }
 
-function GeneralForm(props) {
+function GeneralForm() {
     let context = useContext(UserContext);
     let values = context[0];
     let setters = context[1];
@@ -606,7 +606,7 @@ function GeneralForm(props) {
 }
 
 
-export function Form(props) {
+export function Form() {
 
     let shallowCopy = useContext(UserContext);
 
@@ -616,11 +616,11 @@ export function Form(props) {
     return (
         <>
             <div className="container pt-3">
-            <ul className="list-group">
-                <li className="list-group-item">
+            <ul className="list-unstyled">
+                <li className="">
                 <GeneralForm values={values} setters={setters} />
                 </li> 
-                <li className="list-group-item">
+                <li className="">
                 <ContactForm values={values} setters={setters} />
                 </li> 
             </ul>
