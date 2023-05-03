@@ -536,6 +536,8 @@ function GeneralForm() {
             shallowCopy[0].profficiency = e.target.value;
         } else if (key === "age") {
             shallowCopy[0].age = e.target.value;
+        } else if (key === "bio") {
+            shallowCopy[0].bio = e.target.value;
         }
 
         setters.setGeneral(shallowCopy);
@@ -547,6 +549,7 @@ function GeneralForm() {
     let jobTitle = values.general[0] === undefined ? "" : values.general[0].jobTitle;
     let profficiency = values.general[0] === undefined ? "" : values.general[0].profficiency;
     let age = values.general[0] === undefined ? "" : values.general[0].age;
+    let bio = values.general[0] === undefined ? "" : values.general[0].bio;
 
     return (
         <div className="container mb-3">
@@ -562,6 +565,11 @@ function GeneralForm() {
                         <input type="text" className="form-control" placeholder="last name" onChange={(e) => handleChange("lastName", e)} value={lastName} />  
                     </div>
                 </div>
+            </div>
+
+            <div className="container mb-3">
+                <label className="form-label">Bio</label>
+                <textarea className="form-control" type="text" placeholder="A paragraph about who you are, what job you want and why you deserve it" onChange={(e) => handleChange("bio", e)} value={bio} />
             </div>
 
             <div className="container mb-3">

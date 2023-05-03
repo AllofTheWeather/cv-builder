@@ -1,12 +1,11 @@
 import { Export } from "./Export"
-import { Document } from "./Document"
 
-export default function Download(props) {
+export default function Download() {
     return (
         <div className="container p-5">
             <Export />
-
-            <Document />
+            <div style={{"display": "none"}} >
+            </div>
         </div>
     )
 }

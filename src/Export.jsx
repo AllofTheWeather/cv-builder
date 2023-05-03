@@ -4,12 +4,15 @@
 
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Document } from '/src/Document.jsx';
+import { useState, useEffect, useRef } from "react"
 
-import { Document } from './Document';
 
 export function Export(props) {
 
-  const printDocument = () => {
+  const [height, setHeight] = useState(0)
+
+  function printDocument() {
     const input = document.getElementById('divToPrint');
     html2canvas(input)
       .then((canvas) => {
@@ -21,21 +24,43 @@ export function Export(props) {
       })
     ;
   }
+  
+    useEffect(() => {
+      setHeight(document.getElementById('container'))
+    })
+  
 
     return (
     <div>
-      <div className="container-fluid bg-success">
+      <div className="container-fluid">
         
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-warning m-3" onClick={printDocument}>Print</button>
+        
+        <div className="d-flex justify-content-center flex-column align-items-center">
+          
+          <button className="btn btn-warning m-3" onClick={printDocument}>Export</button>
+          <p>Click to download a PDF of your CV</p>
         </div>
-       
-        
+        <div className="css-row">
+          <div className="css-fixed-width-col">
+            <Document />
+          </div>
+        </div>
+
+        <div id="divToPrint" className="mt4 z" style={{
+            backgroundColor: '#f5f5f5',
+            width: '210mm',
+            minHeight: '297mm',
+            maxHeight: '297mm',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+          
+        </div>
       </div>
 
         {/* The dimensions are the same a A4*/}
         {/* Any children will be printed to PDF */}
         
-      </div>
+    </div>
     )
 }

@@ -1,0 +1,12 @@
+.absolute-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.css-row {
+    display: grid;
+}
+
+.css-fixed-width-col {
+    column-width: 210mm;
+}
