@@ -17,11 +17,10 @@ function App() {
   const [ skills, setSkills ] = useState([]);
  
   /*{ 
-      The employment history object contains employer objects referenced by their location for employerLocation
-      The corresponding data is stored in the sub objects
-      This means multiple jobs cannot share the same location
-
-      In future, perhaps the option to name the objects after a different field could be added
+      Each section of the form stores data in a global state accessed through the app context.    
+      The data is stored as an array of objects because:
+        Each section may consist of one or more blocks of ordered information
+      The getters and setters are made accessible via the context to the form component, which drills down to its children
   }*/
 
   let values = {
