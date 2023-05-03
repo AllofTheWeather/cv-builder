@@ -5,6 +5,8 @@ export function Document() {
     
     let context = useContext(UserContext);
     let values = context[0];
+    
+    /* All form information variables must be checked for type: undefined to prevent the "Uncontrolled component" error. */
 
     let firstName = values.general[0] === undefined ? "" : values.general[0].firstName;
     let lastName = values.general[0] === undefined ? "" : values.general[0].lastName; 
