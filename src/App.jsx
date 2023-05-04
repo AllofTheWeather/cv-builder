@@ -43,15 +43,12 @@ function App() {
     <UserContext.Provider value={[ values, setters ]}>
       <div className="container-fluid d-flex justify-content-between p-0">
         <h1 className="p-3 m-0">CV Builder</h1>
-        <div className="p-3 m-0">
-        <div className="d-flex">
-          <Modal />
-        </div>  
-        </div>
-        
-        
-      </div>
-      
+          <div className="p-3 m-0">
+            <div className="d-flex">
+              <Modal />
+            </div>  
+          </div>
+      </div>     
       <div className="container-fluid bg-primary p-1" />
       <Nav />
       

@@ -1,7 +1,74 @@
 import { useContext } from "react";
 import { UserContext } from "./Constants";
 
-export function Document() {
+
+// The document contains all the formatted CV data
+// It is split into small chunks that can be spread over one or more pages. This helps with even spacing accross pages.
+// Each chunk of information will have a height which will be measured with the useRef hook
+// The chunks will be iteratively added to an array which will represent one page of information
+// A running sum of heights will be kept and once the height exceeds the page height a new array will be created and the height reset
+
+
+// Definitions
+
+// Format contains all the Chunk(s) and allows the heights to be queried
+
+// Each Page contains a subset of the Chunk(s) in document based on a running sum of their heights
+
+// Document contains all Pages with all Chunk(s)
+
+// Format
+// - The logic that determines the splitting of chunks betweeen pages must occur here
+
+
+// Document could be a sibling or otherwise further detached from format and use context to transfer the data
+
+// The only prop data that needs to be shared are the number of pages and the number of chunks per page.
+
+// The list of chunks will be accesible via the context
+
+// Document will build:
+    // a list of chunks in jsx format
+    // an array of page objects that contains a number of chunks property and a data property
+
+    // Document
+    // - must have an array of pages based on props from format
+        // Page
+        // - must have an array of chunks from format
+            // Chunk
+
+
+    //props
+
+    /*
+    
+    [
+        {
+            numberOfChunks (type:int) : "number of chunks on this page" - 1,
+            chunks (type:array) : "an array of the chunks and their data" - [
+                {
+                    height (type: int) : "representing the height in pixels of the component once rendered" - 150px,
+                    data (type: jsx) : "The prestyled jsx to be displayed in the chunk" - <></>
+                }
+            ]
+        }
+    ]
+
+    */
+
+function Chunk(props) {
+    const myHeight = document.getElementById(props.id).offsetHeight
+    
+    return (
+        <div height={myHeight} id={"chunk-" + props.key}>
+            {
+                props.pages[currentPage].chunks[currentChunk].data
+            }
+        </div>
+    )
+}
+    
+function Format() {
     
     let context = useContext(UserContext);
     let values = context[0];
@@ -10,10 +77,7 @@ export function Document() {
 
     let firstName = values.general[0] === undefined ? "" : values.general[0].firstName;
     let lastName = values.general[0] === undefined ? "" : values.general[0].lastName; 
-    let gender = values.general[0] === undefined ? "" : values.general[0].gender;
     let jobTitle = values.general[0] === undefined ? "" : values.general[0].jobTitle;
-    let profficiency = values.general[0] === undefined ? "" : values.general[0].profficiency;
-    let age = values.general[0] === undefined ? "" : values.general[0].age;
 
     let bio = values.general[0] === undefined ? "" :values.general[0].bio;
 
@@ -25,6 +89,32 @@ export function Document() {
     let number = [...values.contact][0] === undefined ? "" : [...values.contact][0].number;
     let email = [...values.contact][0] === undefined ? "" : [...values.contact][0].email;
 
+
+    const [ pages, setPages ] = useState([]);
+    const [ chunks, setChunks ] = useState([]);
+
+    function countChunks() {
+        return values.general.length + values.employment.length + values.skills.length + values.education.length + values.contact.length
+    }
+
+    function getChunkHeight(index) {
+        var offsetHeight = document.getElementById(index).offsetHeight;
+        return offsetHeight
+    }
+
+    function getHeightOfChunksBetween(start, end) {
+        var runningSum = 0;
+
+        for (let i = start; i <= end; i ++) {
+            runningSum += getChunkHeight(i)
+        }
+    }
+
+    function formatData() {
+
+
+
+    }
 
     return (
         <div style={{"width": "210mm"}} id="document">
@@ -144,3 +234,43 @@ export function Document() {
     </div>
     )
 }
+
+export function Document(props){
+
+    /*
+        
+        [
+            {
+                numberOfChunks (type:int) : "number of chunks on this page" - 1,
+                chunks (type:array) : "an array of the chunks and their data" - [
+                    {
+                        height (type: int) : "representing the height in pixels of the component once rendered" - 150px,
+                        data (type: jsx) : "The prestyled jsx to be displayed in the chunk" - <></>
+                    }
+                ]
+            }
+        ]
+    
+    */
+    
+    return (
+        <>
+            {
+                pages.map((page, index) => {
+                    <div key={index}>
+                        {
+                            page.chunks.map((chunk, index) => {
+                                <div key={index}>
+                                {
+                                    chunk.data
+                                }
+                                </div>
+                            })
+                        }
+                    </div>
+                })
+            }
+        </>
+    )  
+    }
+    

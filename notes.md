@@ -29,92 +29,9 @@ I'm struggling to understand how to refactor the current state managment structu
 
 The layut of the CV needs refining. I need to add some custom classes to equally space the listed data
 
-
-
-State: 
-
-[
-  {
-    "name": "State",
-    "value": [
-      "{age: \"24\", firstName: \"Joe\", gender: \"Male\", jobTi…}"
-    ],
-    "subHooks": [],
-    "hookSource": {
-      "lineNumber": 24,
-      "functionName": "App",
-      "fileName": "http://127.0.0.1:5173/gh-pages-deployment/src/App.jsx?t=1682606206851",
-      "columnNumber": 41
-    }
-  },
-  {
-    "name": "State",
-    "value": [
-      "{profficiency: 3, skill: \"HTML & CSS\"}",
-      "{profficiency: 3, skill: \"JavaScript ES6\"}",
-      "{profficiency: 2, skill: \"ReactJS\"}",
-      "{profficiency: 2, skill: \"Git & Github\"}"
-    ],
-    "subHooks": [],
-    "hookSource": {
-      "lineNumber": 25,
-      "functionName": "App",
-      "fileName": "http://127.0.0.1:5173/gh-pages-deployment/src/App.jsx?t=1682606206851",
-      "columnNumber": 47
-    }
-  },
-  {
-    "name": "State",
-    "value": [
-      "{grade: \"Second Class\", institution: \"BIMM Universi…}",
-      "{grade: \"Merit\", institution: \"Shrewsbury College A…}",
-      "{grade: \"B, C, B\", institution: \"Adams' Grammar Sch…}"
-    ],
-    "subHooks": [],
-    "hookSource": {
-      "lineNumber": 26,
-      "functionName": "App",
-      "fileName": "http://127.0.0.1:5173/gh-pages-deployment/src/App.jsx?t=1682606206851",
-      "columnNumber": 45
-    }
-  },
-  {
-    "name": "State",
-    "value": [
-      "{addressLine1: \"57 Palatine Rd\", addressLine2: \"Wes…}"
-    ],
-    "subHooks": [],
-    "hookSource": {
-      "lineNumber": 27,
-      "functionName": "App",
-      "fileName": "http://127.0.0.1:5173/gh-pages-deployment/src/App.jsx?t=1682606206851",
-      "columnNumber": 41
-    }
-  },
-  {
-    "name": "State",
-    "value": [
-      "{profficiency: 3, skill: \"HTML & CSS\"}",
-      "{profficiency: 3, skill: \"JavaScript ES6\"}",
-      "{profficiency: 2, skill: \"ReactJS\"}",
-      "{profficiency: 2, skill: \"Git & Github\"}"
-    ],
-    "subHooks": [],
-    "hookSource": {
-      "lineNumber": 28,
-      "functionName": "App",
-      "fileName": "http://127.0.0.1:5173/gh-pages-deployment/src/App.jsx?t=1682606206851",
-      "columnNumber": 39
-    }
-  }
-]
-
-
-
-
 The CV will consist of an integer number of pages of fixed size.
 
-Document will contain all the data from the form in display order. The information will be separated into chunks of sufficiently small height that many will fit on one page. The height of each chuck will be variable based on the width of the pages. Once page width has been selected, the chunk components will be rendered and their heights will be stored in a ref. A ref is an object that holds a mutable value in its current property. You can place all sorts of values here, but in this post we will focus on DOM elements.
+Document will contain all the data from the form in display order. The information will be separated into chunks of sufficiently small height that many will fit on one page. The height of each chunck will be variable based on the width of the pages. Once page width has been selected, the chunk components will be rendered and their heights will be stored in a ref. A ref is an object that holds a mutable value in its current property. You can place all sorts of values here, but in this post we will focus on DOM elements.
 
 You can use the ref object to get a reference to a DOM element. This example uses the useRef hook for this.
 
@@ -129,3 +46,33 @@ Pages will be an array of the data displayed on each page.
 I may need to restyle the cv so that each section can be split at any point.
 
 The section titles will be appended to the top element in each array - This means they will never be separated from their content
+
+
+
+I'm wondering if there might be simpler way to hande the page formatting. Perhaps a chunk centric approach to the state data structure.
+
+I see no reason why the data can't be separated into chunks to begin with. I just need to make sure the styling isn't affected.
+
+The benefit of chunking the form data upon storage is that I can assign unique id's which can be referenced throught the handling of the data. This will make the height query simpler and may indeed be the only way to acheive this.
+
+I can make the application more weakly coupled by passing all the data from the form to the formatting as one large array of objects rather than lots of smaller data structures.
+
+Im deliberating passing the data through not as JSX, but as JSON, also sending premade style classes as string through alongside the form data. This would mean the styling could be taken care of at the form end rather than the formatting which strongly couples the two processes more than would be desired however, it allows the data to be sent as JSON which improves the ease of data comprehension and state managment.
+
+   ||
+   ||
+  \  /
+   \/
+
+I could use a style key system which simplifies the styling options on the form end down to a series of keys which unlock premade custom classes on the format end. This reduces the strength of coupling between the two components. The problem here is that I'm not sure wether the height query will work on the components that are being rendered.
+
+The organisation of the data will be determined by height queries which take place after the data has been read creating cricular logic.
+I need to implement a read only approah that doesn't modify the state.
+
+Perhaps initialising some split point variables which reference the index at which the chunks need to be rendered on the next page.
+
+These could be generated during the render of each chunk component.
+
+Each page component will require access to the split pointers therefore, they will need to be passed down as props with getters and setters
+
+each page component will have a property 'firstChunk' and 'lastChunk' which will determine which set of chunks it renders. This means it is imperative that each chunk has a unique id. The problem here is that the flow of data is top down, so it is difficult for the chunks to determine where they are rendered on page. Instead, the page should determine how many chunks it recieves.

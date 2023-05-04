@@ -7,10 +7,7 @@ import jsPDF from 'jspdf';
 import { Document } from '/src/Document.jsx';
 import { useState, useEffect, useRef } from "react"
 
-
 export function Export(props) {
-
-  const [height, setHeight] = useState(0)
 
   function printDocument() {
     const input = document.getElementById('divToPrint');
@@ -24,11 +21,6 @@ export function Export(props) {
       })
     ;
   }
-  
-    useEffect(() => {
-      setHeight(document.getElementById('container'))
-    })
-  
 
     return (
     <div>
