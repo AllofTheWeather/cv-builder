@@ -76,3 +76,18 @@ These could be generated during the render of each chunk component.
 Each page component will require access to the split pointers therefore, they will need to be passed down as props with getters and setters
 
 each page component will have a property 'firstChunk' and 'lastChunk' which will determine which set of chunks it renders. This means it is imperative that each chunk has a unique id. The problem here is that the flow of data is top down, so it is difficult for the chunks to determine where they are rendered on page. Instead, the page should determine how many chunks it recieves.
+
+
+
+Currently, my data is organised so that it can be split into chunks that fill the page. A chunk's height varies depending on it's contents. Each chunk stores its height in it's local state using a reference and a document query. A running sum of
+
+
+
+
+The current problem is the strong coupling between document, page, chunk and it's children. The data flow is strongly affected by the child components which requires a circular logic that is proving extremely tricky.
+
+I have opted to pass chunk data through props, storing them in a lifted up state in document. Any state changes will re-render the whole family of components. The main difficulty is to do with the height referencing of the chunk components. It is paramount to the functionality of the document that these heights be accessible by the parents, requiring lifted state through two generations of component.
+
+On point I need to recognise is the heights of the components. Chunks and pages are fundamentally different because one has its height determined by its children, and its position in the dom determined by its height, the other has its height determined by the user, and its positin is pre determined. The unknown factor in creating the pages is the quantity to be rendered. It makes more sense for the page logic to take place in it's parent component and be passed down via state.
+
+It makes sense for all data to be structured in page -> chunk format, and sent to each component separatly. This ensures every component recieves only the data it requires to operate and nothiung more.

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { Document } from "./Document"
 import { useState } from "react"
 import { rootPath } from "./Constants";
 import blockScroll from "./hooks/blockScroll";
@@ -34,7 +33,7 @@ export default function Modal() {
                                 <button type="button" className="btn-close btn-close-white p-3 m-3" aria-label="Close" onClick={() => setToggle(false)} />
                             </div>
                             
-                            <Document />
+                            
 
                             <div className="d-flex justify-content-center p-5">
                                 <NavLink to={rootPath + "download"} className={({ isActive, isPending }) =>

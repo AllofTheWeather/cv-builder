@@ -1,9 +1,11 @@
-import { Export } from "./Export"
+import Transformer from "./Transformer"
 
 export default function Download() {
     return (
         <div className="container p-5">
-            <Export />
+            <Transformer>
+
+            </Transformer>
             <div style={{"display": "none"}} >
             </div>
         </div>
